@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eyxyt.basement.mapper.SysUserMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.eyxyt.basement.entity.SysUserEntity" id="sysUserMap">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="salt" column="salt"/>
+        <result property="email" column="email"/>
+        <result property="mobile" column="mobile"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateBy" column="update_by"/>
+    </resultMap>
+
+    <sql id="selectSysUserVo">
+        select id ,username ,password ,salt ,email ,mobile ,status ,create_time ,update_time ,create_by ,update_by  from sys_user
+    </sql>
+
+
+    <!-- 查询用户的所有权限 -->
+    <select id="queryAllPerms" resultType="string">
+		select m.perms from sys_user_role ur
+			LEFT JOIN sys_role_menu rm on ur.role_id = rm.role_id
+			LEFT JOIN sys_menu m on rm.menu_id = m.id
+		where ur.user_id = #{userId}
+	</select>
+
+    <select id="queryAllPermsByUserName" resultType="string">
+		select m.perms from sys_user_role ur
+			LEFT JOIN sys_user su ON ur.user_id = su.id
+			LEFT JOIN sys_role_menu rm on ur.role_id = rm.role_id
+			LEFT JOIN sys_menu m on rm.menu_id = m.id
+		where su.username = #{userName}
+	</select>
+
+
+    <!-- 查询用户的所有菜单ID -->
+    <select id="queryAllMenuId" resultType="long">
+		select distinct rm.menu_id from sys_user_role ur
+			LEFT JOIN sys_role_menu rm on ur.role_id = rm.role_id
+		where ur.user_id = #{userId}
+	</select>
+
+    <select id="queryAllMenuIdByUserName" resultType="long">
+		SELECT DISTINCT
+            rm.menu_id
+        FROM
+            sys_user_role ur
+        LEFT JOIN sys_user su ON ur.user_id = su.id
+        LEFT JOIN sys_role_menu rm ON ur.role_id = rm.role_id
+        WHERE
+            su.username = #{userName}
+	</select>
+
+
+    <select id="queryByUserName" resultMap="sysUserMap">
+        <include refid="selectSysUserVo"></include>
+		where username = #{username}
+	</select>
+
+</mapper>

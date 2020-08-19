@@ -1,0 +1,41 @@
+server:
+    port: 8081
+
+spring:
+    # 环境 dev|test|prod
+    profiles:
+        active: dev
+#    aop: # 强制使用cglib，防止重复代理和可能引起代理出错的问题
+#        proxy-target-class: true
+
+#mybatis
+mybatis-plus:
+    global-config:
+        db-config:
+            #主键类型、参考: https://mp.baomidou.com/guide/annotation.html#tableid
+            id-type: auto
+
+# 验证码开关
+shiro:
+    login:
+        verify: false
+
+# jwt
+jwt:
+    admin:
+        # JWT认证加密私钥(Base64加密) Admin@Login(Auth}
+        secret: QWRtaW5ATG9naW4oQXV0aH0=
+        # AccessToken过期时间-5分钟-5*60(秒为单位)
+        expire: 1200
+        # RefreshToken过期时间-30分钟-30*60(秒为单位)
+        refreshExpire: 1800
+        # Header中的Authorization字段
+        headerKey: Authorization
+        # Authorization: Bearer; <token>
+        tokenPrefix: Bearer;
+
+logging:
+    level.root: info
+    level.com.eyxyt.basement: debug
+    # Debug打印SQL
+    level.com.wang.mapper: debug

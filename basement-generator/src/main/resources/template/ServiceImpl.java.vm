@@ -1,0 +1,25 @@
+package ${package}.${moduleName};
+
+import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.eyxyt.basement.bean.PageVo;
+import com.eyxyt.basement.bean.Query;
+
+import ${package}.${moduleName}.mapper.${className}Mapper;
+import ${package}.${moduleName}.entity.${className}Entity;
+import ${package}.${moduleName}.service.${className}Service;
+
+
+@Service("${classname}Service")
+public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${className}Entity> implements ${className}Service {
+
+
+    @Override
+    public PageVo queryPage(Query params) {
+        Page page = this.page(params.getPage(), new QueryWrapper<${className}Entity>());
+        return new PageVo(page);
+    }
+
+}

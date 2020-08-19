@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eyxyt.basement.mapper.BizAppUserMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.eyxyt.basement.entity.biz.BizAppUserEntity" id="bizAppUserMap">
+        <result property="id" column="id"/>
+        <result property="platformUserId" column="platform_user_id"/>
+        <result property="mobile" column="mobile"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="headImg" column="head_img"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+        <result property="email" column="email"/>
+        <result property="type" column="type"/>
+        <result property="salt" column="salt"/>
+        <result property="level" column="level"/>
+        <result property="identity" column="identity"/>
+        <result property="gender" column="gender"/>
+        <result property="registSource" column="regist_source"/>
+        <result property="registTime" column="regist_time"/>
+        <result property="loginTime" column="login_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="userName" column="user_name"/>
+    </resultMap>
+
+
+    <select id="selectPage" resultType="com.eyxyt.basement.entity.biz.BizAppUserEntity">
+        select * from biz_app_user bau where bau.type = #{user.type}
+    </select>
+
+</mapper>

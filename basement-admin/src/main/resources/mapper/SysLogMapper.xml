@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eyxyt.basement.mapper.SysLogMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.eyxyt.basement.entity.SysLogEntity" id="sysLogMap">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="operation" column="operation"/>
+        <result property="method" column="method"/>
+        <result property="params" column="params"/>
+        <result property="time" column="time"/>
+        <result property="ip" column="ip"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateBy" column="update_by"/>
+    </resultMap>
+
+    <sql id="selectSysLogVo">
+        select id ,username ,operation ,method ,params ,time ,ip ,create_time ,update_time ,create_by ,update_by  from sys_log
+    </sql>
+
+</mapper>

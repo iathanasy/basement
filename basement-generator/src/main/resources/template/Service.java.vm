@@ -1,0 +1,21 @@
+package ${package}.${moduleName}.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import ${package}.${moduleName}.entity.${className}Entity;
+import com.eyxyt.basement.bean.PageVo;
+import com.eyxyt.basement.bean.Query;
+
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public interface ${className}Service extends IService<${className}Entity> {
+
+
+    PageVo queryPage(Query params);
+}
+

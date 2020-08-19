@@ -1,0 +1,98 @@
+package ${package}.${moduleName}.controller;
+
+import java.util.Arrays;
+import java.util.Map;
+
+
+import com.eyxyt.basement.bean.PageVo;
+import com.eyxyt.basement.bean.Query;
+import com.eyxyt.basement.bean.QueryParams;
+import com.eyxyt.basement.bean.Result;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import ${package}.${moduleName}.entity.${className}Entity;
+import ${package}.${moduleName}.service.${className}Service;
+
+
+
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+@Api(tags = "${comments} 管理")
+@RestController
+@RequestMapping("${moduleName}/${pathName}")
+public class ${className}Controller {
+    @Autowired
+    private ${className}Service ${classname}Service;
+
+    /**
+     * 列表
+     */
+    @ApiOperation("分页查询(排序)")
+    @GetMapping("/list")
+    @PreAuthorize("hasAuthority('${moduleName}:${pathName}:list')")
+    public Result<PageVo> list(QueryParams params) {
+        PageVo page = ${classname}Service.queryPage(new Query(params));
+
+        return Result.ok(page);
+    }
+
+
+    /**
+     * 信息
+     */
+    @ApiOperation("详情查询")
+    @GetMapping("/info/{${pk.attrname}}")
+    @PreAuthorize("hasAuthority('${moduleName}:${pathName}:info')")
+    public Result<${className}Entity> info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
+		${className}Entity ${classname} = ${classname}Service.getById(${pk.attrname});
+
+        return Result.ok(${classname});
+    }
+
+    /**
+     * 保存
+     */
+    @ApiOperation("保存")
+    @PostMapping("/save")
+    @PreAuthorize("hasAuthority('${moduleName}:${pathName}:save')")
+    public Result<Object> save(@RequestBody ${className}Entity ${classname}){
+		${classname}Service.save(${classname});
+
+        return Result.ok();
+    }
+
+    /**
+     * 修改
+     */
+    @ApiOperation("修改")
+    @PostMapping("/update")
+    @PreAuthorize("hasAuthority('${moduleName}:${pathName}:update')")
+    public Result<Object> update(@RequestBody ${className}Entity ${classname}){
+		${classname}Service.updateById(${classname});
+
+        return Result.ok();
+    }
+
+    /**
+     * 删除
+     */
+    @ApiOperation("删除")
+    @PostMapping("/delete")
+    @PreAuthorize("hasAuthority('${moduleName}:${pathName}:delete')")
+    public Result<Object> delete(@RequestBody ${pk.attrType}[] ${pk.attrname}s){
+		${classname}Service.removeByIds(Arrays.asList(${pk.attrname}s));
+
+        return Result.ok();
+    }
+
+}

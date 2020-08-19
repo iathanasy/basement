@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eyxyt.basement.mapper.SysMenuMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.eyxyt.basement.entity.SysMenuEntity" id="sysMenuMap">
+        <result property="id" column="id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+        <result property="perms" column="perms"/>
+        <result property="type" column="type"/>
+        <result property="icon" column="icon"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateBy" column="update_by"/>
+    </resultMap>
+
+    <sql id="selectSysMenuVo">
+        select id ,parent_id ,name ,url ,perms ,type ,icon ,order_num ,create_time ,update_time ,create_by ,update_by  from sys_menu
+    </sql>
+
+    <select id="queryListParentId" resultMap="sysMenuMap">
+        <include refid="selectSysMenuVo"></include>
+		where parent_id = #{parentId} order by order_num asc
+	</select>
+
+    <select id="queryNotButtonList" resultMap="sysMenuMap">
+        <include refid="selectSysMenuVo"></include>
+		where type != 2 order by order_num asc
+	</select>
+
+</mapper>
